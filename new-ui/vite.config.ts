@@ -9,13 +9,16 @@ export default defineConfig({
   base: process.env.VITE_BASE || '/',
   server: {
     port: 5173,
-    host: '127.0.0.1',
+    host: true,
     strictPort: true,
+    // Allow access through the devpod proxy host (…/proxy/5173/). 'true' = any host,
+    // so we don't hardcode the (long, env-specific) proxy hostname in the repo.
+    allowedHosts: true,
     proxy: {
       // Use 127.0.0.1 (NOT 0.0.0.0, NOT localhost-as-IPv6) — the legacy app binds IPv4 on :8080.
       '/BAA': { target: 'http://127.0.0.1:8080', changeOrigin: true },
       '/eisl': { target: 'http://127.0.0.1:8080', changeOrigin: true },
     },
   },
-  preview: { port: 5173, host: '127.0.0.1', strictPort: true },
+  preview: { port: 5173, host: true, strictPort: true, allowedHosts: true },
 })
