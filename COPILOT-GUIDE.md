@@ -36,34 +36,33 @@ copilot reads files in its working directory — this always works.
 
 ## Step 2 — VERIFY the dashboard now (this is the ticket; no build needed)
 ```bash
-cd ~/bafa-comp-modernize/verify
-pip install -r requirements.txt && python -m playwright install chromium
-cp config.example.json config.json
-( cd …/BAX-BusinessAnalysis/business-analysis-next-ui && npm install && npm run dev )   # :5173
+bash setup.sh                          # one-time: skills + deps + builds app/ + verifies it
 ```
-In `copilot`:
+or just verify the app yourself any time:
+```bash
+bash verify-app.sh                     # builds app/, serves it, runs dashboard + widget
 ```
-Use the /bafa-verify skill to run --screen dashboard and summarize output/report-dashboard.html
+In `copilot` you can also say:
 ```
-…or just run it yourself: `python parity/run_parity.py --screen dashboard`.
-Open `output/report-dashboard.html` — each journey is PASS / FOLLOW-UP.
+Use the /bafa-verify skill and summarize output/report-dashboard.html
+```
+Open `output/report-dashboard.html` / `report-widget.html` — each journey is PASS / FOLLOW-UP.
 
-## Step 3 — the full loop for the Compensation widget
-From the **legacy repo** dir, in `copilot`:
+## Step 3 — add the NEXT legacy screen (the loop)
+The dashboard + Compensation widget already ship in `app/`. To add another screen, from the
+**legacy repo** dir, in `copilot`:
 ```
-Use the /bafa-map skill on the Compensation widget (BAA/src/main/webapp/jsp/fa_compensation.jsp)
+Use the /bafa-map skill on <the next legacy screen>
 ```
-→ produces `output/spec.md` + screenshots. Review and commit it.
+→ produces `output/spec.md` + screenshots. Review and commit it. Then:
+```
+Use the /bafa-build skill to add it to app/ from output/spec.md, honoring CONTRACT.md
+```
+→ writes the React screen with the agreed `data-testid`s.
 
-From the **business-analysis-next-ui** dir:
+Then VERIFY (copilot does this at the end of `/bafa-build`, or run it yourself):
 ```
-Use the /bafa-build skill to build the Compensation widget from output/spec.md, honoring CONTRACT.md
-```
-→ writes the React component + endpoint with the agreed `data-testid`s.
-
-Then VERIFY (copilot will do this at the end of `/bafa-build`, or run it yourself):
-```
-python ~/bafa-comp-modernize/verify/parity/run_parity.py --screen widget
+bash ~/bafa-comp-modernize/verify-app.sh
 ```
 For any FOLLOW-UP, copilot fixes the component to satisfy `CONTRACT.md` and re-runs until
 all journeys PASS.
@@ -71,8 +70,9 @@ all journeys PASS.
 ## Step 4 (optional) — pin build conventions
 Drop the conventions into the React repo so BUILD always follows them:
 ```bash
+mkdir -p ~/bafa-comp-modernize/app/.github
 cp ~/bafa-comp-modernize/copilot-instructions.snippet.md \
-   …/business-analysis-next-ui/.github/copilot-instructions.md
+   ~/bafa-comp-modernize/app/.github/copilot-instructions.md
 ```
 
 ## Re-running

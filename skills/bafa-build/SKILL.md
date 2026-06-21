@@ -5,18 +5,17 @@ description: BUILD one BAA screen in React from a saved spec, matching the exist
 
 # bafa-build — rebuild ONE screen in React, to the contract
 
-You implement the screen described in `output/spec.md` inside
-`…/BAX-BusinessAnalysis/business-analysis-next-ui` (React 19 + Vite), **exposing the
-exact `data-testid`s and data shape in `CONTRACT.md`** so the deterministic verify kit
-passes. Stay scoped to this one screen.
+You implement the screen described in `output/spec.md` inside this kit's `app/`
+(React 19 + Vite), **exposing the exact `data-testid`s and data shape in `CONTRACT.md`**
+so the deterministic verify kit passes. Stay scoped to this one screen.
 
 ## Before writing code (mandatory, brief)
 1. Read `output/spec.md` (the source of truth) and `CONTRACT.md` (the hooks you must
    expose).
-2. **Study the existing app once**: pick one implemented feature in
-   `business-analysis-next-ui` and trace component → state → API client → styles. Match
-   its conventions (file layout, `.module.less`, shared components, the `api/` axios
-   pattern). **Do not introduce new conventions or libraries.**
+2. **Study `app/` once**: read `app/src/screens/ManagerDashboard.tsx` and
+   `CompensationWidget.tsx`; trace component → `app/src/api/client.ts` → `styles.css`.
+   Match those conventions (a `screens/` component, the `api/` fetch client + token flow,
+   the contract `data-testid`s). **Do not introduce new conventions or heavy libraries.**
 
 ## Build
 3. Create the React component(s) for the screen following those conventions. Render the
@@ -34,8 +33,7 @@ passes. Stay scoped to this one screen.
 
 ## Close the loop (this is the point)
 6. Run the verifier — it is your hard pass/fail, not your own judgement:
-   `python ../bafa-comp-modernize/verify/parity/run_parity.py --screen widget`
-   (or from the kit dir: `python verify/parity/run_parity.py --screen widget`).
+   `bash verify-app.sh`  (or one screen: `python verify/parity/run_parity.py --screen <name>`).
 7. For every **FOLLOW-UP** journey, read the assert detail, fix the component to satisfy
    the contract, and re-run. Repeat until all journeys PASS. Then commit.
 

@@ -1,11 +1,11 @@
 <!--
 OPTIONAL build conventions for the React app. Copy into:
-  business-analysis-next-ui/.github/copilot-instructions.md
+  app/.github/copilot-instructions.md
 so GitHub Copilot CLI applies them automatically during /bafa-build.
 Keep it short — these are always-on, every-request instructions.
 -->
 
-# Build conventions — business-analysis-next-ui (BAFA Comp)
+# Build conventions — app/ (BAFA Comp)
 
 When modernizing a BAA screen to React in this repo:
 

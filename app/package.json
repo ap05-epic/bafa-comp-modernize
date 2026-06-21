@@ -1,0 +1,24 @@
+{
+  "name": "bafa-comp-ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Brand-new FA Comp Summary (BAFA Comp) React UI - replaces business-analysis-next-ui. Minimal + dependency-light so it actually boots; connects to the same backend contract as the original.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

@@ -26,7 +26,7 @@
       "id": "happy",
       "title": "Happy path - valid FA renders the Compensation box",
       "pixel_baseline": "widget_legacy.png",
-      "stubs": { "compensation": "comp_happy.json" },
+      "stubs": { "token": "auth_token.json", "compensation": "comp_happy.json" },
       "asserts": [
         { "type": "visible", "selector": "[data-testid='comp-widget']" },
         { "type": "visible", "selector": "[data-testid='comp-row-production']" },
@@ -45,7 +45,7 @@
     {
       "id": "validation_nodata",
       "title": "No data / invalid context - the box shows its no-data state, not the table",
-      "stubs": { "compensation": "comp_nodata.json" },
+      "stubs": { "token": "auth_token.json", "compensation": "comp_nodata.json" },
       "asserts": [
         { "type": "visible", "selector": "[data-testid='comp-error']" },
         { "type": "hidden", "selector": "[data-testid='comp-row-production']" }
@@ -55,7 +55,7 @@
     {
       "id": "backend_error",
       "title": "Backend error - compensation service fails -> error state mirrors legacy",
-      "stubs": { "compensation": "__500__" },
+      "stubs": { "token": "auth_token.json", "compensation": "__500__" },
       "asserts": [
         { "type": "visible", "selector": "[data-testid='comp-error']" },
         { "type": "text_present", "text": "Business Analysis Application Error" }

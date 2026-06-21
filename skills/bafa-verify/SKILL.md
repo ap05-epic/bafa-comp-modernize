@@ -16,14 +16,15 @@ cp config.example.json config.json   # adjust only if the pod differs
 ```
 
 ## Run a screen
-The React app must be running (or start it):
+Easiest — build, serve `app/`, and verify both screens in one go:
 ```bash
-cd …/business-analysis-next-ui && npm install && npm run dev   # serves :5173
+bash verify-app.sh
 ```
-Then, from the kit:
+Or start the app yourself and verify one screen:
 ```bash
-python verify/parity/run_parity.py --screen dashboard   # the already-built dashboard = the ticket
-python verify/parity/run_parity.py --screen widget      # the rebuilt Compensation widget (after bafa-build)
+cd app && npm run dev          # serves :5173 (add VITE_MOCK=1 for bundled sample data)
+python verify/parity/run_parity.py --screen dashboard   # FA Comp Summary dashboard
+python verify/parity/run_parity.py --screen widget      # Compensation widget
 ```
 Options: `--only <journey>` (happy | validation_nodata | backend_error), `--headed`,
 `--mode live` (real data + `auth_state.json` + legacy pixel baseline).
