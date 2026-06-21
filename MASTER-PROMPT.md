@@ -23,21 +23,28 @@ checker. Work **autonomously**: do not stop to ask — keep looping until every 
 - Screen list / progress file: `./screens.md`
 - 1:1 bar: the checker prints `PASS` (≤ 1.5% pixel diff)
 
-## Tools you already have (your team's skills)
-- `webapp-snapshot` — `save_auth_state.py` (log in once), `snapshot_single.py` (screenshot the original at 1366×768).
-- `playwright-cli` — drive / inspect either app.
-- `baa-analysis` — deep-read the legacy source for a screen (JSP + fragments + Struts action + JS/CSS).
-- The new app's dev server: `cd new-ui && npm install && npm run dev` → `http://localhost:5173`.
+## Tools
+- **Screenshot the original with `python checker/snap.py <url> <out.png>`** — it uses the Playwright
+  chromium you installed and works even though the team's `webapp-snapshot` / `playwright-cli` skill is
+  pointed at a **missing Chrome binary** in this pod. **Do NOT use the team snapshot skill for screenshots
+  here — it will fail.** Use `snap.py` (and `compare.py`) instead.
+  - Post-login screens need a session: run once
+    `python checker/login.py --url http://127.0.0.1:8080/BAA/jsp/login.jsp --user <U> --pass <P> --out auth_state.json`
+    (read `login.jsp` for the field names if the defaults don't match), then
+    `python checker/snap.py <url> <out.png> --auth auth_state.json`.
+- Read the legacy source directly (JSP + fragments + Struts action + JS/CSS) for each screen's structure.
+- The new app's dev server: `cd new-ui && npm install && npm run dev` → `http://127.0.0.1:5173` (keep it running).
 
 ## THE LOOP — run it for the whole app, non-stop
 
 ### Step 1 — MAP (once)
-Log in at `http://127.0.0.1:8080/BAA/jsp/login.jsp` and crawl the app through the **real menu** (not synthetic
-URLs). For every screen and meaningful state, save:
-- a screenshot → `screenshots/<screen>.png` (viewport **1366×768**),
-- the source it comes from (JSP + included fragments + Struts action + JS/CSS) and the
-  route/URL + how to reach it → a row in `screens.md`.
-Finish with `screens.md` = the ordered checklist of screens to convert (each `[ ] <screen>`).
+**Start with the LOGIN screen — it needs no auth, so prove the loop there first.** Capture it:
+`python checker/snap.py http://127.0.0.1:8080/BAA/jsp/login.jsp screenshots/login.png`.
+Then log in for the rest (`python checker/login.py --url http://127.0.0.1:8080/BAA/jsp/login.jsp --user <U> --pass <P> --out auth_state.json`)
+and crawl the app through the **real menu** (not synthetic URLs). For every screen and state, save:
+- a screenshot with `snap.py` → `screenshots/<screen>.png` (1366×768; add `--auth auth_state.json` for post-login screens),
+- the source it comes from (JSP + fragments + Struts action + JS/CSS) and the route/URL → a row in `screens.md`.
+Finish with `screens.md` = the ordered checklist, **`login` first** (each `[ ] <screen>`).
 
 ### Step 2 — CONVERT each screen, looping until 1:1
 For each unchecked screen in `screens.md`:
@@ -62,6 +69,14 @@ For each unchecked screen in `screens.md`:
 Keep going until **every** screen in `screens.md` is `[x]` and passing. If one screen is
 genuinely blocked (can't reach it, missing entitlement), write the precise reason next to it
 in `screens.md` and continue with the others — come back later.
+
+**Hard rules on stopping:**
+- **Never declare the task complete while any screen is unverified.** A missing baseline or a
+  `FAIL` from the checker is NOT "complete" — it's the next thing to fix.
+- **If a screenshot fails, it's almost always the team snapshot skill's missing-Chrome config.
+  Switch to `python checker/snap.py ...` and continue.** Do not stop because that skill is broken.
+- A screen is done ONLY when `compare.py` prints `PASS (1:1)`. Until then, keep looping
+  build → check → fix on it.
 
 ## Rules
 - **UI only.** Never change the backend. Call the same endpoints the legacy app uses (read
