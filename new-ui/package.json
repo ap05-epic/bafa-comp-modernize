@@ -20,5 +20,9 @@
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.7.2",
     "vite": "^6.0.7"
+  },
+  "comment": "No package-lock is committed on purpose: the pod's npm mirror lags public npm, so each environment resolves fresh against its own registry. overrides pins transitives the mirror has not cached yet.",
+  "overrides": {
+    "nanoid": "<3.3.15"
   }
 }

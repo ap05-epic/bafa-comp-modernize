@@ -13,7 +13,8 @@ code**, and keep the **exact same look** by matching the **original screenshots*
 checker. Work **autonomously**: do not stop to ask — keep looping until every screen passes.
 
 ## CONFIG (edit these to your environment)
-- ORIGINAL app (running): `http://localhost:8080/BAA/`
+- ORIGINAL app (running): `http://127.0.0.1:8080/BAA/`  (login page: `http://127.0.0.1:8080/BAA/jsp/login.jsp`)
+  - Use `127.0.0.1` or `localhost` — **NEVER `0.0.0.0`** (that's a bind address, not a destination) and never the `:8000` JPDA debug port. To view in a browser yourself, use the devpod proxy URL `https://<your-devpod-host>/proxy/8080/BAA/jsp/login.jsp`.
 - Original source code: `<path to the BAA repo — WEB-INF/struts-config.xml, jsp/, css, js>`
 - How to log in to the original (for screenshots): `<creds, or the saved auth_state.json>`
 - NEW React app folder: `./new-ui/`  (already a bootable Vite + React 19 app with a backend proxy)
@@ -31,7 +32,7 @@ checker. Work **autonomously**: do not stop to ask — keep looping until every 
 ## THE LOOP — run it for the whole app, non-stop
 
 ### Step 1 — MAP (once)
-Log in to `http://localhost:8080/BAA/` and crawl it through the **real menu** (not synthetic
+Log in at `http://127.0.0.1:8080/BAA/jsp/login.jsp` and crawl the app through the **real menu** (not synthetic
 URLs). For every screen and meaningful state, save:
 - a screenshot → `screenshots/<screen>.png` (viewport **1366×768**),
 - the source it comes from (JSP + included fragments + Struts action + JS/CSS) and the

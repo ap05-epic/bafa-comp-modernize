@@ -12,8 +12,9 @@ export default defineConfig({
     host: '127.0.0.1',
     strictPort: true,
     proxy: {
-      '/BAA': { target: 'http://localhost:8080', changeOrigin: true },
-      '/eisl': { target: 'http://localhost:8080', changeOrigin: true },
+      // Use 127.0.0.1 (NOT 0.0.0.0, NOT localhost-as-IPv6) — the legacy app binds IPv4 on :8080.
+      '/BAA': { target: 'http://127.0.0.1:8080', changeOrigin: true },
+      '/eisl': { target: 'http://127.0.0.1:8080', changeOrigin: true },
     },
   },
   preview: { port: 5173, host: '127.0.0.1', strictPort: true },

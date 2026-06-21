@@ -17,7 +17,8 @@ screenshots/         # original-app screenshots captured during MAP (the targets
 ```bash
 # 1. one-time deps for the checker + the new app
 pip install -r checker/requirements.txt && python -m playwright install chromium
-( cd new-ui && npm install )
+( cd new-ui && npm install )    # no lockfile committed -> resolves against your npm mirror
+#   if a transitive 404s on the mirror, pin it in new-ui/package.json "overrides" (e.g. nanoid)
 
 # 2. start Copilot CLI, edit the CONFIG block in MASTER-PROMPT.md, then paste the whole file in:
 copilot

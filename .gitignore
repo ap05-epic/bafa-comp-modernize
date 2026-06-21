@@ -1,6 +1,8 @@
 # new-ui build/deps
 new-ui/node_modules/
 new-ui/dist/
+# lockfile is NOT committed: the pod npm mirror lags public npm, so resolve fresh per-env
+new-ui/package-lock.json
 
 # checker temp + diff artifacts (regenerated each run)
 **/*.diff.png
