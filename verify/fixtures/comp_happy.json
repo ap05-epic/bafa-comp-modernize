@@ -1,9 +1,0 @@
-{
-  "_contract": "Compensation box data shape the rebuilt React widget consumes and the new BFF endpoint returns. Mirrors the legacy BAAXD550 FASummaryCompBox (Production / Comp NNA / CL/MTG across Daily / MTD / YTD). capture_legacy.py writes the real AB10 values into output/baseline/widget_legacy_data.json in this same shape for value parity.",
-  "asOf": "Apr 2026",
-  "rows": [
-    { "key": "production", "label": "Production", "daily": "12,500", "mtd": "146,200", "ytd": "1,284,900" },
-    { "key": "compNNA",    "label": "Comp NNA",   "daily": "3,100",  "mtd": "41,800",  "ytd": "402,650" },
-    { "key": "clMtg",      "label": "CL/MTG",     "daily": "880",    "mtd": "9,450",   "ytd": "88,120" }
-  ]
-}

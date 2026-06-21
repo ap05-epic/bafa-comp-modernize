@@ -1,23 +1,19 @@
-# Live session state — NEVER commit (holds a real SSO session)
-verify/auth_state.json
+# new-ui build/deps
+new-ui/node_modules/
+new-ui/dist/
+
+# checker temp + diff artifacts (regenerated each run)
+**/*.diff.png
+_baseline_capture.png
+_candidate_capture.png
+compare-result.json
+
+# real session state -- NEVER commit
 auth_state*.json
 
-# Local config copy (may hold pod-specific URLs)
-verify/config.json
-
-# Run outputs (regenerated each run)
-output/report-*.json
-output/report-*.html
-output/screenshots/
-output/baseline/
-
-# Python / Playwright
+# python
 __pycache__/
 *.pyc
-.pytest_cache/
-
-# Node (if anything is installed alongside)
-node_modules/
 
 # OS
 .DS_Store

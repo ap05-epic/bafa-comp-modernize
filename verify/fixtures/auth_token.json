@@ -1,6 +1,0 @@
-{
-  "apiAuthentication": {
-    "accessToken": "fake-token-for-parity-tests",
-    "tokenType": "Bearer"
-  }
-}

@@ -1,0 +1,15 @@
+/* Base styles. The conversion loop adds per-screen styles to match the originals exactly. */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+  color: #222;
+  background: #fff;
+}
+.placeholder {
+  padding: 40px;
+  color: #555;
+}
