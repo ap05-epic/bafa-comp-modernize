@@ -1,0 +1,21 @@
+{
+  "_comment": "Copy to config.json (git-ignored) and adjust if the pod differs. Stub mode (default) ignores the real backends, so most values only shape the URL the React app builds. legacy_base_url is used ONLY by --mode live; put the real QA host in your local config.json, never here.",
+
+  "react_base_url": "http://localhost:5173",
+  "react_base_path": "/BAA/businessAnalysisNext/",
+  "legacy_base_url": "https://REPLACE-ME-baa-qa-host/BAA/",
+
+  "fa_context": "AB10",
+  "reportIdentifier": "100",
+  "orgHierCode": "000",
+  "orgHierRole": "FA",
+  "orgIdentifier": "AB10",
+  "env": "local",
+
+  "viewport": { "width": 1366, "height": 768 },
+  "nav_timeout_ms": 30000,
+
+  "fixtures_dir": "fixtures",
+  "output_dir": "../output",
+  "auth_state": "auth_state.json"
+}

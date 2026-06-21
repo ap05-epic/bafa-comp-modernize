@@ -1,0 +1,28 @@
+{
+  "effectivePeriod": 202504,
+  "reportIdentifier": 100,
+  "reportCustomizationMetaData": [
+    {
+      "columnIndex": 1,
+      "columnSequence": 1,
+      "columnHeaderDescription": "FA ID",
+      "columnTypeCode": "T",
+      "columnFormatSize": "13,0",
+      "columnDefaultValue": "",
+      "columnVisibilityFlag": true,
+      "columnActiveFlag": true,
+      "columnDefinition": "{\"field\":\"faId\"}"
+    },
+    {
+      "columnIndex": 2,
+      "columnSequence": 2,
+      "columnHeaderDescription": "Name",
+      "columnTypeCode": "T",
+      "columnFormatSize": "30,0",
+      "columnDefaultValue": "",
+      "columnVisibilityFlag": true,
+      "columnActiveFlag": true,
+      "columnDefinition": "{\"field\":\"name\"}"
+    }
+  ]
+}

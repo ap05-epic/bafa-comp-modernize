@@ -1,0 +1,6 @@
+# This kit runs on Linux (the pod). Force LF for all text so Python/Playwright/skills
+# stay clean regardless of how files are moved (git clone, scp, zip from Windows...).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary

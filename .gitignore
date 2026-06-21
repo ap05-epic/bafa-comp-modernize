@@ -1,0 +1,24 @@
+# Live session state — NEVER commit (holds a real SSO session)
+verify/auth_state.json
+auth_state*.json
+
+# Local config copy (may hold pod-specific URLs)
+verify/config.json
+
+# Run outputs (regenerated each run)
+output/report-*.json
+output/report-*.html
+output/screenshots/
+output/baseline/
+
+# Python / Playwright
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node (if anything is installed alongside)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

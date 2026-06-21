@@ -1,0 +1,66 @@
+{
+  "name": "widget",
+  "description": "FULL-LOOP target: the legacy summary-shell Compensation widget (jsp/fa_compensation.jsp), rebuilt in React. Faithful UI => pixel + data + behaviour parity all apply. Asserts reference the data-testid CONTRACT (see ../../CONTRACT.md). MAP fills the legacy.url; BUILD exposes these testids + wires the endpoint to the comp_*.json contract shape.",
+
+  "routes": {
+    "compensation": "**/fa-compensation/**"
+  },
+
+  "target": {
+    "url": "{react_base_url}{react_base_path}compensation?fa={fa_context}&env={env}",
+    "ready_selector": "[data-testid='comp-widget']",
+    "ready_timeout_ms": 15000,
+    "_note": "BUILD sets the real route. If the widget is embedded (iframe pattern like the dashboard), point this at its standalone dev route."
+  },
+
+  "legacy": {
+    "url": "{legacy_base_url}dispatcherAction.do?page=fasummary&fanum={fa_context}",
+    "selector": "#faComp",
+    "_note": "Best-effort deep link for capture_legacy.py (live mode). BAA is stateful; if it 500s, reach the FA Summary shell via the real menu or capture #faComp manually with the webapp-snapshot skill and drop output/baseline/widget_legacy.png + widget_legacy_data.json yourself."
+  },
+
+  "pixel": { "enabled": true, "max_diff_percent": 2.5, "tolerance": 14 },
+
+  "journeys": [
+    {
+      "id": "happy",
+      "title": "Happy path - valid FA renders the Compensation box",
+      "pixel_baseline": "widget_legacy.png",
+      "stubs": { "compensation": "comp_happy.json" },
+      "asserts": [
+        { "type": "visible", "selector": "[data-testid='comp-widget']" },
+        { "type": "visible", "selector": "[data-testid='comp-row-production']" },
+        { "type": "visible", "selector": "[data-testid='comp-row-compnna']" },
+        { "type": "visible", "selector": "[data-testid='comp-row-clmtg']" },
+        { "type": "text_present", "text": "Compensation" },
+        { "type": "text_present", "text": "Production" },
+        { "type": "text_present", "text": "Comp NNA" },
+        { "type": "text_present", "text": "CL/MTG" },
+        { "type": "text_present", "text": "Daily" },
+        { "type": "text_present", "text": "MTD" },
+        { "type": "text_present", "text": "YTD" }
+      ],
+      "screenshot": "widget_happy.png"
+    },
+    {
+      "id": "validation_nodata",
+      "title": "No data / invalid context - the box shows its no-data state, not the table",
+      "stubs": { "compensation": "comp_nodata.json" },
+      "asserts": [
+        { "type": "visible", "selector": "[data-testid='comp-error']" },
+        { "type": "hidden", "selector": "[data-testid='comp-row-production']" }
+      ],
+      "screenshot": "widget_nodata.png"
+    },
+    {
+      "id": "backend_error",
+      "title": "Backend error - compensation service fails -> error state mirrors legacy",
+      "stubs": { "compensation": "__500__" },
+      "asserts": [
+        { "type": "visible", "selector": "[data-testid='comp-error']" },
+        { "type": "text_present", "text": "Business Analysis Application Error" }
+      ],
+      "screenshot": "widget_error.png"
+    }
+  ]
+}

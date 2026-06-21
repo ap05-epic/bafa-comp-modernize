@@ -1,0 +1,8 @@
+# Verify kit dependencies (install in the pod).
+#   pip install -r requirements.txt
+#   python -m playwright install chromium
+#
+# playwright = the browser driver (your pod's webapp-testing/webapp-snapshot skills already use it).
+# pillow     = OPTIONAL, only for the soft visual pixel-diff (the hard gate is the asserts).
+playwright>=1.40
+pillow>=10.0 ; python_version >= "3.8"
